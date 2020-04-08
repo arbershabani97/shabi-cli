@@ -4,7 +4,7 @@
   "description": "A React CLI based on my own standards",
   "main": "index.js",
   "bin": {
-    "shabi-cli": "index.js"
+    "shabi": "./index.js"
   },
   "scripts": {
     "test": "echo \\\"Error: no test specified\\\" && exit 1"
