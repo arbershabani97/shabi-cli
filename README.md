@@ -11,7 +11,9 @@
 
 ```javascript
 shabi class HelloWorld
+shabi class Projects --extras
 shabi hook Task
+shabi hook Note -E
 shabi service NoteValidation (not implemented yet)
 ```
 
