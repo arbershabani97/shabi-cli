@@ -6,8 +6,7 @@ const stateString = (fields) => {
     state={
         ${fields.map((field) => field + ': ""').join(`,
         `)}
-    };
-`;
+    };`;
 };
 const destructureFieldsString = (fields) => {
 	if (!fields.length) return "";
@@ -18,10 +17,8 @@ const destructureFieldsString = (fields) => {
 const fieldsString = (fields) => {
 	if (!fields.length) return "";
 	const inputs = fields.map((field) => `<input name="${field}" onChange={this.handleChange} placeholder="${field}" type="text" value={${field}} />`);
-	return `
-                ${inputs.join(`
-                `)}
-`;
+	return `${inputs.join(`
+                `)}`;
 };
 
 const content = (name, fields) => {
