@@ -15,6 +15,7 @@ shabi class Projects --extra
 shabi hook Task
 shabi hook Note -E
 shabi form-class CreateIdea --extra
+shabi form-hook CreateLight --extra
 shabi service NoteValidation (not implemented yet)
 ```
 
