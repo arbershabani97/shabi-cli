@@ -4,6 +4,6 @@ module.exports = (name) => {
 
 	fs.writeFile(`styles/${name}.scss`, "", (err) => {
 		if (err) return console.log(err);
-		console.log("Style Created");
+		// console.log("Style Created");
 	});
 };

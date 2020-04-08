@@ -1,5 +1,5 @@
-const checkAnswer = require("./answer");
-const ask = require("./ask");
+const checkAnswer = require("./helpers/answer");
+const ask = require("./helpers/ask");
 const createReactHookWithExtras = require("../components/extras/hook");
 
 const extrasFunctionality = async (name) => {
