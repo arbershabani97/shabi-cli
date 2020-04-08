@@ -1,8 +1,8 @@
-const checkAnswer = require("./helpers/answer");
-const ask = require("./helpers/ask");
-const createReactClassWithExtras = require("../components/extras/class");
+const checkAnswer = require("../helpers/answer");
+const ask = require("../helpers/ask");
+const createReactClassWithExtras = require("../../components/classes/extras/class.extras");
 
-const extrasFunctionality = async (name) => {
+module.exports = async (name) => {
 	console.log("\n---------------");
 
 	const addState = await ask("\nWould you like to add state? (yes, no)\n");
@@ -22,5 +22,3 @@ const extrasFunctionality = async (name) => {
 
 	createReactClassWithExtras(name, state, componentDidMount, componentDidUpdate);
 };
-
-module.exports = extrasFunctionality;

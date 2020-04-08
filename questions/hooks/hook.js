@@ -1,8 +1,8 @@
-const checkAnswer = require("./helpers/answer");
-const ask = require("./helpers/ask");
-const createReactHookWithExtras = require("../components/extras/hook");
+const checkAnswer = require("../helpers/answer");
+const ask = require("../helpers/ask");
+const createReactHookWithExtras = require("../../components/hooks/extras/hook.extras");
 
-const extrasFunctionality = async (name) => {
+module.exports = async (name) => {
 	console.log("\n---------------");
 
 	const addUseState = await ask("\nWould you like to add state? (yes, no)\n");
@@ -17,5 +17,3 @@ const extrasFunctionality = async (name) => {
 
 	createReactHookWithExtras(name, useState, useEffect);
 };
-
-module.exports = extrasFunctionality;
