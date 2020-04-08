@@ -1,0 +1,22 @@
+{
+  "name": "shabi-cli",
+  "version": "1.0.0",
+  "description": "A React CLI based on my own standards",
+  "main": "index.js",
+  "bin": {
+    "shabi-cli": "index.js"
+  },
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/arbershabani97/shabi-cli.git"
+  },
+  "author": "Arber Shabani (Shabi)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/arbershabani97/shabi-cli/issues"
+  },
+  "homepage": "https://gitlab.com/arbershabani97/shabi-cli#readme"
+}
