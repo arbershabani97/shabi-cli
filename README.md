@@ -12,7 +12,7 @@
 ```javascript
 shabi class HelloWorld
 shabi hook Task
-~~shabi service NoteValidation~~
+shabi service NoteValidation (not implemented yet)
 ```
 
 | Commands    |    Functionality     |
