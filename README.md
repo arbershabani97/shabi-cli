@@ -1,14 +1,30 @@
 # Shabi CLI
 
----
+## CLI Arguments
+*  First Argument - `shabi` - [default]
+*  Second Argument - `class` | `hook` | `service` - What you're trying to generate!
+*  Third Argument - `HelloWorld` | `Task` | `Note` - Name
 
 ## Options
+```javascript
+shabi class HelloWorld
+shabi hook Task
+shabi service NoteValidation
+```
+
+| Commands | Functionality     |
+| -------- | :---------------: |
+| class    | Create a class    |
+| hook     | Create a hook     |
+| service  | Create a service  |
+
+## Options Usage
 
 ### class
 
 `ex. shabi class HelloWorld`
 
-```
+```react
 import "./styles/HelloWorld.scss";
 
 import React, {Component} from "react";
@@ -30,7 +46,7 @@ export default HelloWorld;
 
 `ex. shabi hook HelloWorld`
 
-```
+```react
 import "./styles/HelloWorld.scss";
 
 import React from "react";
