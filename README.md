@@ -5,23 +5,26 @@
 -   First Argument - `shabi` - [default]
 -   Second Argument - `class` | `hook` | `service` - What you're trying to generate!
 -   Third Argument - `HelloWorld` | `Task` | `Note` - Name
--   Fourth Argument - `--extras` | `-E` - Add Extras to the content you're generating!
+-   Fourth Argument - `--extra` | `-E` - Add Extras to the content you're generating!
 
 ## Options
 
 ```javascript
 shabi class HelloWorld
-shabi class Projects --extras
+shabi class Projects --extra
 shabi hook Task
 shabi hook Note -E
+shabi form-class CreateIdea --extra
 shabi service NoteValidation (not implemented yet)
 ```
 
-| Commands    |    Functionality     |
-| ----------- | :------------------: |
-| class       |    Create a class    |
-| hook        |    Create a hook     |
-| ~~service~~ | ~~Create a service~~ |
+| Commands    |       Functionality        |
+| ----------- | :------------------------: |
+| class       |       Create a class       |
+| hook        |       Create a hook        |
+| form-class  | Create a class with a form |
+| form-hook   | Create a hook with a form  |
+| ~~service~~ |    ~~Create a service~~    |
 
 ## Options Usage
 

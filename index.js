@@ -16,7 +16,7 @@ const createReactClassWithExtras = require("./questions/classes/class");
 const createReactHookWithExtras = require("./questions/hooks/hook");
 const createReactClassFormWithExtras = require("./questions/classes/form");
 
-let extras = process.argv.find((arg) => arg === "--extras" || arg === "-E");
+let extras = process.argv.find((arg) => arg === "--extra" || arg === "-E");
 createReactStyles(name);
 if (extras) {
 	if (type === "class") createReactClassWithExtras(name);
