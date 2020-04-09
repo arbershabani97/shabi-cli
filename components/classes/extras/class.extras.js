@@ -1,31 +1,5 @@
 const fs = require("fs");
-
-const stateString = (val) => {
-	if (!val) return "";
-	return `
-    state={
-
-    };
-`;
-};
-const componentDidMountString = (val) => {
-	if (!val) return "";
-	return `
-    componentDidMount() {
-
-    }
-`;
-};
-const componentDidUpdateString = (val) => {
-	if (!val) return "";
-	return `
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.userID !== prevProps.userID) {
-            // Action
-        }
-    }
-`;
-};
+const {stateString, componentDidMountString, componentDidUpdateString} = require("../helpers/class.helpers");
 
 const content = (name, state, componentDidMount, componentDidUpdate) => {
 	return `import "./styles/${name}.scss";

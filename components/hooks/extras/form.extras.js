@@ -1,7 +1,4 @@
 const fs = require("fs");
-String.prototype.capitalize = function () {
-	return this.charAt(0).toUpperCase() + this.slice(1);
-};
 
 const useStateString = (fields) => {
 	if (!fields.length) return "";
