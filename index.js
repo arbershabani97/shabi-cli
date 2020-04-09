@@ -25,12 +25,13 @@ if (extras) {
 	if (type === "hook") createReactHookWithExtras(name);
 	if (type.startsWith("form")) {
 		if (type.endsWith("class")) return createReactClassFormWithExtras(name);
-		createReactHookFormWithExtras(name);
+		if (!type.endsWith("class")) return createReactHookFormWithExtras(name);
 	}
 } else {
 	if (type === "class") createReactClass(name);
 	if (type === "hook") createReactHook(name);
 	if (type.startsWith("form")) {
 		if (type.endsWith("class")) return createReactClassForm(name);
+		if (type.endsWith("class")) return createReactHookForm(name);
 	}
 }
