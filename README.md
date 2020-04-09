@@ -16,6 +16,8 @@ shabi hook Task
 shabi hook Note -E
 shabi form-class CreateIdea --extra
 shabi form-hook CreateLight --extra
+shabi page-class login
+shabi page-hook register -E
 shabi service NoteValidation (not implemented yet)
 ```
 
@@ -25,6 +27,8 @@ shabi service NoteValidation (not implemented yet)
 | hook        |       Create a hook        |
 | form-class  | Create a class with a form |
 | form-hook   | Create a hook with a form  |
+| page-class  |   Create a page (class)    |
+| page-hook   |    Create a page (hook)    |
 | ~~service~~ |    ~~Create a service~~    |
 
 ## Options Usage
