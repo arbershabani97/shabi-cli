@@ -11,12 +11,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://gitlab.com/arbershabani97/shabi-cli.git"
+		"url": "git+https://github.com/arbershabani97/shabi-cli.git"
 	},
 	"author": "Arber Shabani (Shabi)",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://gitlab.com/arbershabani97/shabi-cli/issues"
+		"url": "https://github.com/arbershabani97/shabi-cli/issues"
 	},
-	"homepage": "https://gitlab.com/arbershabani97/shabi-cli#readme"
+	"homepage": "https://github.com/arbershabani97/shabi-cli#readme"
 }

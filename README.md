@@ -1,5 +1,11 @@
 # Shabi CLI
 
+## Installation
+
+Using [npm](https://www.npmjs.com/):
+
+    $ npm i -g shabi-cli
+
 ## CLI Arguments
 
 -   First Argument - `shabi` - [default]
