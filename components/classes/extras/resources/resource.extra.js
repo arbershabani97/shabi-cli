@@ -2,6 +2,7 @@ const createFile = require("../../../../services/createFile.service");
 const createStyleFile = require("../../../../services/createStyleFile.service");
 const checkFolder = require("../../../../services/folder.service");
 const classResourceComponent = require("../../class");
+const itemResourceComponent = require("./item");
 const createResourceComponent = require("./resources/create");
 const deleteResourceComponent = require("./resources/delete");
 const editResourceComponent = require("./resources/edit");
@@ -27,7 +28,7 @@ module.exports = async (name, fields) => {
 
 	// await createResourceComponent(`${folderName}/${Name}`, Name, state, componentDidMount, componentDidUpdate);
 	await classResourceComponent(`${folderName}/_Header`);
-	// await createResourceComponent(`${folderName}/${nameSingle}`);
+	await itemResourceComponent(`${folderName}/_${nameSingle}`, `_${nameSingle}`, allFields);
 	await createResourceComponent(`${folderName}/resources/Create${nameSingle}`, `Create${nameSingle}`, allFields);
 	await deleteResourceComponent(`${folderName}/resources/Delete${nameSingle}`, `Delete${nameSingle}`, allFields);
 	await editResourceComponent(`${folderName}/resources/Edit${nameSingle}`, `Edit${nameSingle}`, allFields);
