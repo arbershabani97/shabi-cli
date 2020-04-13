@@ -1,7 +1,7 @@
 {
 	"name": "shabi-cli",
-	"version": "1.0.11",
-	"description": "A React CLI based on my own standards",
+	"version": "1.0.2",
+	"description": "A React CLI based to make your life easier!!",
 	"main": "index.js",
 	"bin": {
 		"shabi": "./index.js"
