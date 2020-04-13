@@ -1,0 +1,35 @@
+{
+    "pages": {
+        "classes": [],
+        "hooks": [
+            "home",
+            "projects",
+            "tasks",
+            "notes",
+            "auth/login",
+            "auth/register",
+            "auth/forgotPassword",
+            "auth/resetPassword"
+        ]
+    },
+    "components": {
+        "classes": ["Welcome"],
+        "hooks": [
+            "projects/Projects",
+            "projects/_Project",
+            "projects/_Header",
+            "projects/resources/CreateProject",
+            "projects/resources/DeleteProject",
+            "projects/resources/EditProject",
+            "projects/resources/ListProjects",
+            "projects/resources/ShowProject",
+            "projects/resources/DeleteProject"
+        ]
+    },
+    "resources": {
+        "classes": [],
+        "hooks": [
+            "tasks"
+        ]
+    }
+}

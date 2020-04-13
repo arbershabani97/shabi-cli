@@ -1,8 +1,15 @@
-const fs = require("fs");
-const {stateString, componentDidMountString, componentDidUpdateString} = require("../helpers/class.helpers");
+const createFile = require("../../../services/createFile.service");
+const createStyleFile = require("../../../services/createStyleFile.service");
+const {
+    stateString,
+    componentDidMountString,
+    componentDidUpdateString
+} = require("../helpers/class.helpers");
+const checkFolder = require("../../../services/folder.service");
 
 const content = (name, state, componentDidMount, componentDidUpdate) => {
-	return `import "./styles/${name}.scss";
+    name = name.split("/").pop();
+    return `import "./styles/${name}.scss";
     
 import React, {Component} from "react";
   
@@ -18,9 +25,13 @@ class ${name} extends Component {${stateString(state)}${componentDidMountString(
   
 export default ${name};`;
 };
-module.exports = (name, state, componentDidMount, componentDidUpdate) =>
-	fs.writeFile(`${name}.js`, content(name, state, componentDidMount, componentDidUpdate), (err) => {
-		if (err) return console.log(err);
-		console.log("Component Created");
-		process.exit();
-	});
+module.exports = async (name, state, componentDidMount, componentDidUpdate) => {
+    checkFolder.components(name);
+
+    await createFile(`src/components/${name}.js`, content(name, state, componentDidMount, componentDidUpdate));
+    console.log("Class Component Created");
+
+    await createStyleFile(name, `src/components`);
+
+    process.exit();
+}

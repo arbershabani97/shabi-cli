@@ -1,7 +1,10 @@
-const fs = require("fs");
+const createFile = require("../../services/createFile.service");
+const createStyleFile = require("../../services/createStyleFile.service");
+const checkFolder = require("../../services/folder.service");
 
 const content = (name) => {
-	return `import "./styles/${name}.scss";
+    name = name.split("/").pop();
+    return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
 
@@ -24,9 +27,13 @@ class ${name} extends Component {
 export default ${name};`;
 };
 
-module.exports = (name) =>
-	fs.writeFile(`${name}.js`, content(name), (err) => {
-		if (err) return console.log(err);
-		console.log("Component Created");
-		process.exit();
-	});
+module.exports = async (name) => {
+    checkFolder.components(name);
+
+    await createFile(`src/components/${name}.js`, content(name));
+    console.log("Form Component Created");
+
+    await createStyleFile(name, `src/components`);
+
+    process.exit();
+}

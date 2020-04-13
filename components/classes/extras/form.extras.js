@@ -1,28 +1,31 @@
-const fs = require("fs");
+const createFile = require("../../../services/createFile.service");
+const createStyleFile = require("../../../services/createStyleFile.service");
+const checkFolder = require("../../../services/folder.service");
 
 const stateString = (fields) => {
-	if (!fields.length) return "";
-	return `
+    if (!fields.length) return "";
+    return `
     state={
         ${fields.map((field) => field + ': ""').join(`,
         `)}
     };`;
 };
 const destructureFieldsString = (fields) => {
-	if (!fields.length) return "";
-	return `
+    if (!fields.length) return "";
+    return `
         const {${fields.join(", ")}} = this.state;
 `;
 };
 const fieldsString = (fields) => {
-	if (!fields.length) return "";
-	const inputs = fields.map((field) => `<input name="${field}" onChange={this.handleChange} placeholder="${field}" type="text" value={${field}} />`);
-	return `${inputs.join(`
+    if (!fields.length) return "";
+    const inputs = fields.map((field) => `<input name="${field}" onChange={this.handleChange} placeholder="${field}" type="text" value={${field}} />`);
+    return `${inputs.join(`
                 `)}`;
 };
 
 const content = (name, fields) => {
-	return `import "./styles/${name}.scss";
+    name = name.split("/").pop();
+    return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
 
@@ -47,9 +50,13 @@ class ${name} extends Component {${stateString(fields)}
 export default ${name};`;
 };
 
-module.exports = (name, fields) =>
-	fs.writeFile(`${name}.js`, content(name, fields), (err) => {
-		if (err) return console.log(err);
-		console.log("Component Created");
-		process.exit();
-	});
+module.exports = async (name, fields) => {
+    checkFolder.components(name);
+
+    await createFile(`src/components/${name}.js`, content(name, fields));
+    console.log("Form Component Created");
+
+    await createStyleFile(name, `src/components`);
+
+    process.exit();
+}

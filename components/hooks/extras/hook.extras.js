@@ -1,7 +1,14 @@
-const fs = require("fs");
-const {useStateAndOrEffect, useStateString, useEffectString} = require("../helpers/hook.helpers");
+const createFile = require("../../../services/createFile.service");
+const createStyleFile = require("../../../services/createStyleFile.service");
+const checkFolder = require("../../../services/folder.service");
+const {
+	useStateAndOrEffect,
+	useStateString,
+	useEffectString
+} = require("../helpers/hook.helpers");
 
 const content = (name, useState, useEffect) => {
+	name = name.split("/").pop();
 	return `import "./styles/${name}.scss";
 
 import React${useStateAndOrEffect(useState, useEffect)} from "react";
@@ -17,9 +24,13 @@ const ${name} = () => {${useStateString(useState)}${useEffectString(useEffect)}
 export default ${name};`;
 };
 
-module.exports = (name, useState, useEffect) =>
-	fs.writeFile(`${name}.js`, content(name, useState, useEffect), (err) => {
-		if (err) return console.log(err);
-		console.log("Hook Created");
-		process.exit();
-	});
+module.exports = async (name, useState, useEffect) => {
+	checkFolder.components(name);
+
+	await createFile(`src/components/${name}.js`, content(name, useState, useEffect));
+	console.log("Hook Component Created");
+
+	await createStyleFile(name, `src/components`);
+
+	process.exit();
+}

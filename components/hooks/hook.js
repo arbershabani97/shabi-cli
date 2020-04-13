@@ -1,5 +1,8 @@
-const fs = require("fs");
+const createFile = require("../../services/createFile.service");
+const createStyleFile = require("../../services/createStyleFile.service");
+const checkFolder = require("../../services/folder.service");
 const content = (name) => {
+	name = name.split("/").pop();
 	return `import "./styles/${name}.scss";
 
 import React from "react";
@@ -15,9 +18,11 @@ const ${name} = () => {
 export default ${name};`;
 };
 
-module.exports = (name) =>
-	fs.writeFile(`${name}.js`, content(name), (err) => {
-		if (err) return console.log(err);
-		console.log("Hook Created");
-		process.exit();
-	});
+module.exports = async (name) => {
+	checkFolder.components(name);
+
+	await createFile(`src/components/${name}.js`, content(name));
+	console.log("Hook Component Created");
+
+	await createStyleFile(name, `src/components`);
+}

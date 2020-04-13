@@ -2,11 +2,7 @@
 
 A React CLI to make your life easier.
 
-Using the CLI to create a class/hook/form - creates it in the folder you're in.
-
 Using the CLI to create pages should be done from your main directory (where package.json is located)
-
-Soon all the functionalities will improve and you'll be able to create a component from your main directory (where package.json is located)
 
 ## Installation
 
@@ -25,25 +21,33 @@ Using [npm](https://www.npmjs.com/):
 
 ```javascript
 shabi class HelloWorld
+shabi class HelloWorld/_Header -E
 shabi class Projects --extra
 shabi hook Task
 shabi hook Note -E
+shabi hook Note/Details -E
 shabi form-class CreateIdea --extra
 shabi form-hook CreateLight --extra
 shabi page-class login
 shabi page-hook register -E
+shabi resource-class task
+shabi resource-hook note
+shabi project default.json (you can find the default.json on sample folder, to see how you can use it)
 shabi service NoteValidation (not implemented yet)
 ```
 
-| Commands    |       Functionality        |
-| ----------- | :------------------------: |
-| class       |       Create a class       |
-| hook        |       Create a hook        |
-| form-class  | Create a class with a form |
-| form-hook   | Create a hook with a form  |
-| page-class  |   Create a page (class)    |
-| page-hook   |    Create a page (hook)    |
-| ~~service~~ |    ~~Create a service~~    |
+| Commands       |                         Functionality                          |
+| -------------- | :------------------------------------------------------------: |
+| class          |                         Create a class                         |
+| hook           |                         Create a hook                          |
+| form-class     |                   Create a class with a form                   |
+| form-hook      |                   Create a hook with a form                    |
+| page-class     |                     Create a page (class)                      |
+| page-hook      |                      Create a page (hook)                      |
+| resource-class |                   Create a Resource (class)                    |
+| resource-hook  |                    Create a Resource (hook)                    |
+| project        | Create a Multiple Components based on the provided json config |
+| ~~service~~    |                      ~~Create a service~~                      |
 
 ## Options Usage
 
@@ -87,6 +91,23 @@ const HelloWorld = () => {
 }
 
 export default HelloWorld;
+```
+
+### Resource Structure
+
+`ex. shabi resource notes` - This command create those files
+
+```
+    notes/
+        resources/
+            CreateNote.js
+            DeleteNote.js
+            EditNote.js
+            ListNotes.js
+            ShowNote.js
+        Notes.js
+        _Header.js
+        _Note.js
 ```
 
 ## Main React Folder Structure

@@ -1,8 +1,17 @@
-const fs = require("fs");
-const {useStateAndOrEffect, useStateString, useEffectString} = require("../helpers/hook.helpers");
-const {contentApp} = require("../helpers/page.helpers");
+const createFile = require("../../../services/createFile.service");
+const createStyleFile = require("../../../services/createStyleFile.service");
+const checkFolder = require("../../../services/folder.service");
+const {
+	useStateAndOrEffect,
+	useStateString,
+	useEffectString
+} = require("../helpers/hook.helpers");
+const {
+	contentApp
+} = require("../helpers/page.helpers");
 
 const content = (name, useState, useEffect) => {
+	name = name.split("/").pop();
 	return `import "./styles/${name}.page.scss";
 
 import React${useStateAndOrEffect(useState, useEffect)} from "react";
@@ -18,27 +27,20 @@ const ${name} = () => {${useStateString(useState)}${useEffectString(useEffect)}
 export default ${name};`;
 };
 
-module.exports = (name, useState, useEffect) => {
-	if (!fs.existsSync("./src")) fs.mkdirSync("./src");
-	if (!fs.existsSync("./src/pages")) fs.mkdirSync("./src/pages");
-	if (!fs.existsSync("./src/pages/styles")) fs.mkdirSync("./src/pages/styles");
+module.exports = async (name, useState, useEffect) => {
+	checkFolder.pages(name);
 
-	const Name = name.capitalize();
+	const Name = name.split("/").pop().capitalize();
+	const folder = name.split("/").slice(0, -1).join("/");
 
-	fs.writeFile(`src/App.sample.js`, contentApp(Name, useState, useEffect), (err) => {
-		if (err) return console.log(err);
-		console.log(`Check App.sample.js on adding the route`);
-		process.exit();
-	});
+	await createFile(`src/App.sample.js`, contentApp(Name, useState, useEffect));
+	console.log(`Check App.sample.js on adding the route`);
 
-	fs.writeFile(`src/pages/${Name}.page.js`, content(Name, useState, useEffect), (err) => {
-		if (err) return console.log(err);
-		console.log(`${Name} Page Created`);
-		process.exit();
-	});
-	fs.writeFile(`src/pages/styles/${Name}.page.scss`, "", (err) => {
-		if (err) return console.log(err);
-		// console.log("Style Created");
-		process.exit();
-	});
+	await createFile(`src/pages/${folder}/${Name}.page.js`, content(Name, useState, useEffect));
+	console.log(`${Name} Page Created`);
+
+	name = `${folder}/${Name}.page`;
+	await createStyleFile(name, `src/pages`);
+
+	process.exit();
 };
