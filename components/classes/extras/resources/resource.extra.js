@@ -6,6 +6,7 @@ const createResourceComponent = require("./resources/create");
 const deleteResourceComponent = require("./resources/delete");
 const editResourceComponent = require("./resources/edit");
 const listResourceComponent = require("./resources/list");
+const showResourceComponent = require("./resources/show");
 const camelToKebab = require("../../../../services/camelToKebab.service");
 
 module.exports = async (name, fields) => {
@@ -31,7 +32,7 @@ module.exports = async (name, fields) => {
 	await deleteResourceComponent(`${folderName}/resources/Delete${nameSingle}`, `Delete${nameSingle}`, allFields);
 	await editResourceComponent(`${folderName}/resources/Edit${nameSingle}`, `Edit${nameSingle}`, allFields);
 	await listResourceComponent(`${folderName}/resources/List${Name}`, `List${Name}`, allFields);
-	// await createResourceComponent(`${folderName}/resources/Show${nameSingle}`);
+	await showResourceComponent(`${folderName}/resources/Show${nameSingle}`, `Show${nameSingle}`, allFields);
 
 	process.exit();
 };
