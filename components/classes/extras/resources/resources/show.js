@@ -18,7 +18,7 @@ const destructureFieldsString = (fields) => {
 };
 const fieldsString = (fields) => {
 	if (!fields.length) return "";
-	const inputs = fields.map((field) => `<h3 className="lead mb-4">{${field}}</h3>`);
+	const inputs = fields.map((field) => `<h3>{${field}}</h3>`);
 	return `${inputs.join(`
                 `)}`;
 };
@@ -30,9 +30,15 @@ const content = (name, fields) => {
 import React, {Component} from "react";
 
 class ${name} extends Component {
+    shouldComponentUpdate(prevProps) {
+        const {id} = this.props;
+        if(prevProps.id !== id) return true;
+        return false;
+    }
+
     render(){${destructureFieldsString(fields)}
         return (
-            <div className="${name}">
+            <div className="${name} box">
                 ${fieldsString(fields)}
             </div>
         );
