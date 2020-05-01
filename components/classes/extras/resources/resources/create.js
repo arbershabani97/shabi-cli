@@ -24,27 +24,37 @@ const fieldsString = (fields) => {
 };
 
 const content = (name, fields) => {
-	name = name.split("/").pop();
+    name = name.split("/").pop();
+    const onlyFields = fields.filter(field=> field !== "id");
 	return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
 
 // import {post${name.slice(6)}} from "{{{store/API/${name.slice(6).toLowerFirst()}s}}}";
 
-class ${name} extends Component {${stateString(fields)}
+class ${name} extends Component {${stateString(onlyFields)}
+
+    shouldComponentUpdate(prevProps, prevState) {
+        const {${onlyFields.join(", ")}} = this.state;
+        if (${onlyFields.length > 1 ? onlyFields.slice(0,-1).map(field=>`
+            prevState.${field} !== ${field} || `).join(''): ''}
+            prevState.${onlyFields[onlyFields.length - 1]} !== ${onlyFields[onlyFields.length - 1]}
+        ) return true;
+        return false;
+    }
 
     handleChange = e => this.setState({[e.target.name]: e.target.value});
 
     handleSubmit = e => {
         e.preventDefault();
-        const {${fields.join(", ")}} = this.state;
-        // post${name.slice(6)}({${fields.join(", ")}});
+        const {${onlyFields.join(", ")}} = this.state;
+        // post${name.slice(6)}({${onlyFields.join(", ")}});
     }
 
-    render(){${destructureFieldsString(fields)}
+    render(){${destructureFieldsString(onlyFields)}
         return (
             <form className="${name}" onSubmit={this.handleSubmit}>
-                ${fieldsString(fields)}
+                ${fieldsString(onlyFields)}
                 <button type="submit">Submit</button>
             </form>
         );

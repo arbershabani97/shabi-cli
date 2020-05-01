@@ -6,7 +6,7 @@ const stateString = (fields) => {
 	if (!fields.length) return "";
 	return `
     state={
-        ${fields.map((field) => field + `: this.props.${field} || ""`).join(`,
+        ${fields.map((field) => field + `: ""`).join(`,
         `)}
     };`;
 };
@@ -25,6 +25,7 @@ const fieldsString = (fields) => {
 
 const content = (name, fields) => {
     name = name.split("/").pop();
+    const onlyFields = fields.filter(field=> field !== "id");
 	return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
@@ -32,6 +33,17 @@ import React, {Component} from "react";
 // import {put${name.slice(4)}} from "{{{store/API/${name.slice(4).toLowerFirst()}s}}}";
 
 class ${name} extends Component {${stateString(fields)}
+
+    shouldComponentUpdate(prevProps, prevState) {
+        const {id} = this.props;
+        const {${onlyFields.join(", ")}} = this.state;
+        if (
+            prevProps.id !== id ||${onlyFields.length > 1 ? onlyFields.slice(0,-1).map(field=>`
+            prevState.${field} !== ${field} || `).join(''): ''}
+            prevState.${onlyFields[onlyFields.length - 1]} !== ${onlyFields[onlyFields.length - 1]}
+        ) return true;
+        return false;
+    }
 
     componentDidUpdate(prevProps) {
         const {${fields.join(", ")}} = this.props;
@@ -49,10 +61,10 @@ class ${name} extends Component {${stateString(fields)}
         // put${name.slice(4)}({${fields.join(", ")}});
     }
 
-    render(){${destructureFieldsString(fields.filter(field=> field!=="id"))}
+    render(){${destructureFieldsString(fields.filter(field=> field !== "id"))}
         return (
             <form className="${name}" onSubmit={this.handleSubmit}>
-                ${fieldsString(fields)}
+                ${fieldsString(fields.filter(field=> field !== "id"))}
                 <button type="submit">Submit</button>
             </form>
         );

@@ -34,6 +34,12 @@ import React, {Component} from "react";
 // import {delete${name.slice(6)}} from "{{{store/API/${name.slice(6).toLowerFirst()}s}}}";
 
 class ${name} extends Component {
+    shouldComponentUpdate(prevProps){
+        const {id} = this.props;
+        if (prevProps.id !== id) return true;
+        return false;
+    }
+
     handleClick = e => {
         e.preventDefault();
         const {id} = this.props;
@@ -41,10 +47,10 @@ class ${name} extends Component {
     }
 
     render(){
-        const {${fields.join(", ")}} = this.props;
+        const {${fields.filter(field=> field !== "id").join(", ")}} = this.props;
         return (
             <div className="${name} box">
-                ${fieldsString(fields)}
+                ${fieldsString(fields.filter(field=> field !== "id"))}
                 <button onClick={this.handleClick} type="button">
                     Delete
                 </button>
