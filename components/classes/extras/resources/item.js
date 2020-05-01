@@ -10,30 +10,61 @@ const stateString = (fields) => {
         `)}
     };`;
 };
-const destructureFieldsString = (fields) => {
+const destructureFieldsString = (fields, name) => {
 	if (!fields.length) return "";
-	return `
-        const {${fields.join(", ")}} = this.props;
+    return `
+        const {${name}} = this.props;
+        const {${fields.join(", ")}} = ${name};
 `;
 };
 const fieldsString = (fields) => {
 	if (!fields.length) return "";
-	const inputs = fields.map((field) => `<h3 className="lead mb-4">{${field}}</h3>`);
+    const inputs = fields.map((field) => `<p>
+                    ${field}: <span>{${field}}</span>
+                </p>`);
 	return `${inputs.join(`
                 `)}`;
 };
 
 const content = (name, fields) => {
 	name = name.split("/").pop();
+    const onlyFields = fields.filter(field=> field !== "id");
+    const lowerName = name.slice(1).toLowerFirst();
 	return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
 
 class ${name} extends Component {
-    render(){${destructureFieldsString(fields)}
+    shouldComponentUpdate(prevProps) {
+		const {${fields.join(", ")}} = this.props;
+        if (${fields.length > 1 ? fields.slice(0,-1).map(field=>`
+            prevProps.${field} !== ${field} || `).join(''): ''}
+            prevProps.${fields[fields.length - 1]} !== ${fields[fields.length - 1]}
+        ) return true;
+		return false;
+	}
+
+    handleClick = e => {
+		const {${lowerName}, onToggle, setSelection} = this.props;
+		onToggle(e);
+		setSelection(${lowerName});
+    };
+    
+    render(){${destructureFieldsString(onlyFields, lowerName)}
         return (
-            <div className="${name}">
-                ${fieldsString(fields)}
+            <div className="${name} box">
+                ${fieldsString(onlyFields)}
+				<div>
+					<button onClick={this.handleClick} tab="show" type="button">
+						Show
+					</button>
+					<button onClick={this.handleClick} tab="edit" type="button">
+						Edit
+					</button>
+					<button onClick={this.handleClick} tab="delete" type="button">
+						Delete
+					</button>
+				</div>
             </div>
         );
     }
