@@ -18,7 +18,9 @@ const destructureFieldsString = (fields) => {
 };
 const fieldsString = (fields) => {
 	if (!fields.length) return "";
-	const inputs = fields.map((field) => `<h3 className="lead mb-4">{${field}}</h3>`);
+    const inputs = fields.map((field) => `<p>
+                    ${field}: <span>{${field}}</span>
+                </p>`);
 	return `${inputs.join(`
                 `)}`;
 };
@@ -29,12 +31,13 @@ const content = (name, fields) => {
 
 import React, {Component} from "react";
 
-class ${name} extends Component {
+// import {delete${name.slice(6)}} from "{{{store/API/${name.toLowerFirst()}}}}";
 
+class ${name} extends Component {
     handleClick = e => {
         e.preventDefault();
         const {id} = this.props;
-        delete${name.slice(6)}({id});
+        // delete${name.slice(6)}({id});
     }
 
     render(){
@@ -42,8 +45,8 @@ class ${name} extends Component {
         return (
             <div className="${name}">
                 ${fieldsString(fields)}
-                <button className="btn btn-danger" onClick={this.handleClick}>
-                    Delete Project
+                <button onClick={this.handleClick} type="button">
+                    Delete
                 </button>
             </div>
         );
