@@ -41,8 +41,10 @@ class ${name} extends Component {
 		// get${name.slice(4)}();
     }
     
-	shouldComponentUpdate() {
-		return false;
+	shouldComponentUpdate(prevProps) {
+        const {${lowerName}} = this.props;
+        if (${lowerName}.length !== prevProps.${lowerName}.length) return true;
+        return false;
     }
     
     render(){
