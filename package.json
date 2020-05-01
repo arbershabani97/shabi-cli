@@ -18,5 +18,6 @@
 	"bugs": {
 		"url": "https://github.com/arbershabani97/shabi-cli/issues"
 	},
+	"publishConfig": { "registry": "https://npm.pkg.github.com/" },
 	"homepage": "https://github.com/arbershabani97/shabi-cli#readme"
 }
