@@ -29,6 +29,8 @@ const content = (name, fields) => {
 
 import React, {Component} from "react";
 
+// import {post${name.slice(6)}} from "{{{store/API/${name.toLowerFirst()}}}}";
+
 class ${name} extends Component {${stateString(fields)}
 
     handleChange = e => this.setState({[e.target.name]: e.target.value});
@@ -36,13 +38,14 @@ class ${name} extends Component {${stateString(fields)}
     handleSubmit = e => {
         e.preventDefault();
         const {${fields.join(", ")}} = this.state;
-        post${name.slice(6)}({${fields.join(", ")}});
+        // post${name.slice(6)}({${fields.join(", ")}});
     }
 
     render(){${destructureFieldsString(fields)}
         return (
             <form className="${name}" onSubmit={this.handleSubmit}>
                 ${fieldsString(fields)}
+                <button type="submit">Submit</button>
             </form>
         );
     }
