@@ -32,7 +32,7 @@ import React, {Component} from "react";
 class ${name} extends Component {
     shouldComponentUpdate(prevProps) {
         const {id} = this.props;
-        if(prevProps.id !== id) return true;
+        if (prevProps.id !== id) return true;
         return false;
     }
 

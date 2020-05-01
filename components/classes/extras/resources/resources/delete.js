@@ -26,7 +26,8 @@ const fieldsString = (fields) => {
 };
 
 const content = (name, fields) => {
-	name = name.split("/").pop();
+    name = name.split("/").pop();
+    const onlyFields = fields.filter(field=> field !== "id");
 	return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
@@ -47,10 +48,10 @@ class ${name} extends Component {
     }
 
     render(){
-        const {${fields.filter(field=> field !== "id").join(", ")}} = this.props;
+        const {${onlyFields.join(", ")}} = this.props;
         return (
             <div className="${name} box">
-                ${fieldsString(fields.filter(field=> field !== "id"))}
+                ${fieldsString(onlyFields)}
                 <button onClick={this.handleClick} type="button">
                     Delete
                 </button>
