@@ -56,7 +56,7 @@ class ${name} extends Component {
     }
     
     render(){
-        const {${lowerName} = [...sampleList], onToggle, setSelection} = this.props;
+        const {${lowerName} = sampleList, onToggle, setSelection} = this.props;
         return (
             <div className="${name}">
                 {${lowerName}.map(${singleName} => (

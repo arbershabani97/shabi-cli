@@ -12,10 +12,12 @@ Using [npm](https://www.npmjs.com/):
 
 ## CLI Arguments
 
-- First Argument - `shabi` - [default]
-- Second Argument - `class` | `hook` | `service` - What you're trying to generate!
-- Third Argument - `HelloWorld` | `Task` | `Note` - Name
-- Fourth Argument - `--extra` | `-E` - Add Extras to the content you're generating!
+-   First Argument - `shabi` - [default]
+-   Second Argument - `class` | `hook` | `service` - What you're trying to generate!
+-   Third Argument - `HelloWorld` | `Task` | `Note` - Name
+-   Fourth Argument 
+            - `--extra` | `-E` - Add Extras to the content you're generating!
+            - `name,description,title,assignee` - Add Extras to the content you're generating!
 
 ## Options
 
@@ -32,22 +34,25 @@ shabi page-class login
 shabi page-hook register -E
 shabi resource-class task
 shabi resource-hook note
+shabi RC Notes title,description
+shabi RC Tasks name,description,assignee
 shabi project default.json (you can find the default.json on sample folder, to see how you can use it)
 shabi service NoteValidation (not implemented yet)
 ```
 
-| Commands       |                         Functionality                          |
-| -------------- | :------------------------------------------------------------: |
-| class          |                         Create a class                         |
-| hook           |                         Create a hook                          |
-| form-class     |                   Create a class with a form                   |
-| form-hook      |                   Create a hook with a form                    |
-| page-class     |                     Create a page (class)                      |
-| page-hook      |                      Create a page (hook)                      |
-| resource-class |                   Create a Resource (class)                    |
-| resource-hook  |                    Create a Resource (hook)                    |
-| project        | Create a Multiple Components based on the provided json config |
-| ~~service~~    |                      ~~Create a service~~                      |
+| Commands                           |                         Functionality                          |
+| ---------------------------------- | :------------------------------------------------------------: |
+| class                              |                         Create a class                         |
+| hook                               |                         Create a hook                          |
+| form-class                         |                   Create a class with a form                   |
+| form-hook                          |                   Create a hook with a form                    |
+| page-class                         |                     Create a page (class)                      |
+| page-hook                          |                      Create a page (hook)                      |
+| resource-class                     |                   Create a Resource (class)                    |
+| resource-hook                      |                    Create a Resource (hook)                    |
+| RC |             Create a Resource (class) with fields              |
+| project                            | Create a Multiple Components based on the provided json config |
+| ~~service~~                        |                      ~~Create a service~~                      |
 
 ## Options Usage
 

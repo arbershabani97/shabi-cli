@@ -1,7 +1,7 @@
 #! /usr/bin/env node
- //--no-warnings
+//--no-warnings
 
-const fs = require("fs");
+// const fs = require("fs");
 // console.log(process.argv);
 
 String.prototype.capitalize = function () {
@@ -14,6 +14,7 @@ String.prototype.toLowerFirst = function () {
 // Args
 const type = process.argv[2];
 const name = process.argv[3] || "";
+const fields = process.argv[4] || "";
 
 const createProject = require("./projects/project");
 // Components - Classes
@@ -34,6 +35,7 @@ const createReactStyles = require("./components/styles");
 const createReactClassWithExtras = require("./questions/classes/class");
 const createReactClassFormWithExtras = require("./questions/classes/form");
 const createReactClassPageWithExtras = require("./questions/classes/page");
+const createReactClassResourceWithExtras = require("./components/classes/extras/resources/resource.extra");
 // Components w/ Extras - Hooks
 const createReactHookWithExtras = require("./questions/hooks/hook");
 const createReactHookFormWithExtras = require("./questions/hooks/form");
@@ -67,7 +69,11 @@ if (extras) {
 		if (type.endsWith("class")) createReactClassResource(name);
 		if (!type.endsWith("class")) createReactHookResource(name);
 	}
+	if (type.startsWith("Resource")){
+		if(type.endsWith("class")) createReactClassResourceWithExtras(name, fields);
+	}
+	if (type==="RC") createReactClassResourceWithExtras(name, fields);
 }
-if (type === "project") createProject(name)
 
+if (type === "project") createProject(name);
 // process.exit();
