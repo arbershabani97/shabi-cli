@@ -32,15 +32,25 @@ const content = (name, fields) => {
 
 import React, {Component} from "react";
 
+// import {get${name.slice(4)}} from "{{{store/API/${name.slice(4).toLowerFirst()}}}}";
+
 import ${Name} from "../_${Name}";
 
 class ${name} extends Component {
+	componentDidMount() {
+		// get${name.slice(4)}();
+    }
+    
+	shouldComponentUpdate() {
+		return false;
+    }
+    
     render(){
-        const {${lowerName}} = this.props;
+        const {${lowerName}, onToggle, setSelection} = this.props;
         return (
             <div className="${name}">
                 {${lowerName}.map(${singleName} => (
-                    <${Name} key={${singleName}.id} ${singleName}={${singleName}} />
+                    <${Name} key={${singleName}.id} ${singleName}={${singleName}} onToggle={onToggle} setSelection={setSelection} />
                 ))}
             </div>
         );
