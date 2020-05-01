@@ -1,7 +1,4 @@
-const createFile = require("../../../../services/createFile.service");
-const createStyleFile = require("../../../../services/createStyleFile.service");
-const checkFolder = require("../../../../services/folder.service");
-const classResourceComponent = require("../../class");
+const mainResourceComponent = require("./main");
 const itemResourceComponent = require("./item");
 const createResourceComponent = require("./resources/create");
 const deleteResourceComponent = require("./resources/delete");
@@ -11,11 +8,6 @@ const showResourceComponent = require("./resources/show");
 const camelToKebab = require("../../../../services/camelToKebab.service");
 
 module.exports = async (name, fields) => {
-	// checkFolder.components(name);
-
-	// await createFile(`src/components/${name}.js`, content(name, state, componentDidMount, componentDidUpdate));
-	// console.log("Class Component Created");
-
 	let Name = name.split("/").pop().capitalize();
 	if (!Name.endsWith("s")) Name = Name + "s";
 	const folderName = name
@@ -26,8 +18,9 @@ module.exports = async (name, fields) => {
 
 	const allFields = fields.split(",").map((field) => field.trim());
 
-	// await createResourceComponent(`${folderName}/${Name}`, Name, state, componentDidMount, componentDidUpdate);
-	await classResourceComponent(`${folderName}/_Header`);
+	if(!allFields.includes("id")) allFields.unshift("id");
+
+	await mainResourceComponent(`${folderName}/${Name}`, Name, allFields);
 	await itemResourceComponent(`${folderName}/_${nameSingle}`, `_${nameSingle}`, allFields);
 	await createResourceComponent(`${folderName}/resources/Create${nameSingle}`, `Create${nameSingle}`, allFields);
 	await deleteResourceComponent(`${folderName}/resources/Delete${nameSingle}`, `Delete${nameSingle}`, allFields);
