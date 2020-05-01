@@ -1,6 +1,7 @@
 const createFile = require("../../../../../services/createFile.service");
 const createStyleFile = require("../../../../../services/createStyleFile.service");
 const checkFolder = require("../../../../../services/folder.service");
+const deleteStyle = require("./delete.style");
 
 const stateString = (fields) => {
 	if (!fields.length) return "";
@@ -69,5 +70,5 @@ module.exports = async (fileName, name, fields) => {
 	await createFile(`src/components/${fileName}.js`, content(name, fields));
 	console.log("Class Component Created");
 
-	await createStyleFile(fileName, `src/components`);
+	await createStyleFile(fileName, `src/components`, deleteStyle(name));
 };

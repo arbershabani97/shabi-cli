@@ -1,7 +1,8 @@
 const createFile = require("../../../../../services/createFile.service");
 const createStyleFile = require("../../../../../services/createStyleFile.service");
 const checkFolder = require("../../../../../services/folder.service");
-
+const listStyle = require("./list.style");
+const randomNames = ["Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter"]
 const stateString = (fields) => {
 	if (!fields.length) return "";
 	return `
@@ -28,13 +29,20 @@ const content = (name, fields) => {
 	const singleName = name.slice(4, -1).toLowerFirst();
 	const lowerName = name.slice(4).toLowerFirst();
 	const Name = name.slice(4, -1);
+    const onlyFields = fields.filter(field=> field !== "id");
 	return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
+import {connect} from "react-redux";
 
 // import {get${name.slice(4)}} from "{{{store/API/${name.slice(4).toLowerFirst()}}}}";
 
 import ${Name} from "../_${Name}";
+
+const sampleList = [
+    { id: 1, ${onlyFields.map((field) => field + `: "${randomNames[Math.floor(Math.random()*randomNames.length)]}"`).join(", ")}},
+    { id: 2, ${onlyFields.map((field) => field + `: "${randomNames[Math.floor(Math.random()*randomNames.length)]}"`).join(", ")}},
+]
 
 class ${name} extends Component {
 	componentDidMount() {
@@ -48,7 +56,7 @@ class ${name} extends Component {
     }
     
     render(){
-        const {${lowerName}, onToggle, setSelection} = this.props;
+        const {${lowerName} = [...sampleList], onToggle, setSelection} = this.props;
         return (
             <div className="${name}">
                 {${lowerName}.map(${singleName} => (
@@ -69,5 +77,5 @@ module.exports = async (fileName, name, fields) => {
 	await createFile(`src/components/${fileName}.js`, content(name, fields));
 	console.log("Class Component Created");
 
-	await createStyleFile(fileName, `src/components`);
+	await createStyleFile(fileName, `src/components`, listStyle(name));
 };

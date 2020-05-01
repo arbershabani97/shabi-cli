@@ -1,15 +1,8 @@
 const createFile = require("../../../../../services/createFile.service");
 const createStyleFile = require("../../../../../services/createStyleFile.service");
 const checkFolder = require("../../../../../services/folder.service");
+const showStyle = require("./show.style");
 
-const stateString = (fields) => {
-	if (!fields.length) return "";
-	return `
-    state={
-        ${fields.map((field) => field + `: this.props.${field} || ""`).join(`,
-        `)}
-    };`;
-};
 const destructureFieldsString = (fields) => {
 	if (!fields.length) return "";
 	return `
@@ -18,7 +11,9 @@ const destructureFieldsString = (fields) => {
 };
 const fieldsString = (fields) => {
 	if (!fields.length) return "";
-	const inputs = fields.map((field) => `<h3>{${field}}</h3>`);
+    const inputs = fields.map((field) => `<p>
+                    ${field}: <span>{${field}}</span>
+                </p>`);
 	return `${inputs.join(`
                 `)}`;
 };
@@ -54,5 +49,5 @@ module.exports = async (fileName, name, fields) => {
 	await createFile(`src/components/${fileName}.js`, content(name, fields));
 	console.log("Class Component Created");
 
-	await createStyleFile(fileName, `src/components`);
+	await createStyleFile(fileName, `src/components`, showStyle(name));
 };

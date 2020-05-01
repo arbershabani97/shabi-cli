@@ -32,7 +32,7 @@ import React, {Component} from "react";
 
 // import {put${name.slice(4)}} from "{{{store/API/${name.slice(4).toLowerFirst()}s}}}";
 
-class ${name} extends Component {${stateString(fields)}
+class ${name} extends Component {${stateString(onlyFields)}
 
     shouldComponentUpdate(prevProps, prevState) {
         const {id} = this.props;
@@ -46,18 +46,19 @@ class ${name} extends Component {${stateString(fields)}
     }
 
     componentDidUpdate(prevProps) {
-        const {${fields.join(", ")}} = this.props;
-        if (${fields.length > 1 ? fields.slice(0,-1).map(field=>`
+        const {${onlyFields.join(", ")}} = this.props;
+        if (${onlyFields.length > 1 ? onlyFields.slice(0,-1).map(field=>`
             prevProps.${field} !== ${field} || `).join(''): ''}
-            prevProps.${fields[fields.length - 1]} !== ${fields[fields.length - 1]}
-        ) this.setState({${fields.join(", ")}});
+            prevProps.${onlyFields[onlyFields.length - 1]} !== ${onlyFields[onlyFields.length - 1]}
+        ) this.setState({${onlyFields.join(", ")}});
     }
 
     handleChange = e => this.setState({[e.target.name]: e.target.value});
 
     handleSubmit = e => {
         e.preventDefault();
-		const {${fields.join(", ")}} = this.state;
+        const {id} = this.props;
+		const {${onlyFields.join(", ")}} = this.state;
         // put${name.slice(4)}({${fields.join(", ")}});
     }
 

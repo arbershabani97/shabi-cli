@@ -1,34 +1,10 @@
 const createFile = require("../../../../services/createFile.service");
 const createStyleFile = require("../../../../services/createStyleFile.service");
 const checkFolder = require("../../../../services/folder.service");
-
-const stateString = (fields) => {
-	if (!fields.length) return "";
-	return `
-    state={
-        ${fields.map((field) => field + `: this.props.${field} || ""`).join(`,
-        `)}
-    };`;
-};
-const destructureFieldsString = (fields, name) => {
-	if (!fields.length) return "";
-    return `
-        const {${name}} = this.props;
-        const {${fields.join(", ")}} = ${name};
-`;
-};
-const fieldsString = (fields) => {
-	if (!fields.length) return "";
-    const inputs = fields.map((field) => `<p>
-                    ${field}: <span>{${field}}</span>
-                </p>`);
-	return `${inputs.join(`
-                `)}`;
-};
+const mainStyle = require("./main.style");
 
 const content = (name, fields) => {
 	name = name.split("/").pop();
-    const onlyFields = fields.filter(field=> field !== "id");
     const singleName = name.slice(0,-1);
 	return `import "./styles/${name}.scss";
 
@@ -54,8 +30,8 @@ class ${name} extends Component {
 		const {activeTab, selected${singleName}} = this.state;
 		if (
             prevState.activeTab !== activeTab || ${fields.length > 1 ? fields.slice(0,-1).map(field=>`
-            prevProps.selected${singleName}.${field} !== selected${singleName}.${field} || `).join(''): ''}
-            prevProps.selected${singleName}.${fields[fields.length - 1]} !== selected${singleName}.${fields[fields.length - 1]}
+            prevState.selected${singleName}.${field} !== selected${singleName}.${field} || `).join(''): ''}
+            prevState.selected${singleName}.${fields[fields.length - 1]} !== selected${singleName}.${fields[fields.length - 1]}
         ) return true;
 		return false;
 	}
@@ -68,7 +44,7 @@ class ${name} extends Component {
 	};
     
     render(){
-        const {activeTab, selectedHelloWorld} = this.state;
+        const {activeTab, selected${singleName}} = this.state;
 
 		const isHomeActive = activeTab === "home" ? "active" : "";
         const isCreateActive = activeTab === "create" ? "active" : "";
@@ -119,5 +95,5 @@ module.exports = async (fileName, name, fields) => {
 	await createFile(`src/components/${fileName}.js`, content(name, fields));
 	console.log("Class Component Created");
 
-	await createStyleFile(fileName, `src/components`);
+	await createStyleFile(fileName, `src/components`, mainStyle(name));
 };
