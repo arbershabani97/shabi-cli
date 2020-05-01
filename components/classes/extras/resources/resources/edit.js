@@ -17,33 +17,44 @@ const destructureFieldsString = (fields) => {
 `;
 };
 const fieldsString = (fields) => {
-	if (!fields.length) return "";
-	const inputs = fields.map((field) => `<input name="${field}" onChange={this.handleChange} placeholder="${field}" type="text" value={${field}} />`);
+    if (!fields.length) return "";
+	const inputs = fields.filter(field=> field!=="id").map((field) => `<input name="${field}" onChange={this.handleChange} placeholder="${field}" type="text" value={${field}} />`);
 	return `${inputs.join(`
                 `)}`;
 };
 
 const content = (name, fields) => {
-	name = name.split("/").pop();
+    name = name.split("/").pop();
+    fields=["name","color", "id"];
 	return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
 
+// import {put${name.slice(4)}} from "{{{store/API/${name.toLowerFirst()}}}}";
+
 class ${name} extends Component {${stateString(fields)}
+
+    componentDidUpdate(prevProps) {
+        const {${fields.join(", ")}} = this.props;
+        if (${fields.length > 1 ? fields.slice(0,-1).map(field=>`
+            prevProps.${field} !== ${field} || `).join(''): ''}
+            prevProps.${fields[fields.length - 1]} !== ${fields[fields.length - 1]}
+        ) this.setState({${fields.join(", ")}});
+    }
 
     handleChange = e => this.setState({[e.target.name]: e.target.value});
 
     handleSubmit = e => {
         e.preventDefault();
-		const {id} = this.props;
 		const {${fields.join(", ")}} = this.state;
-        put${name.slice(4)}({id, ${fields.join(", ")}});
+        // put${name.slice(4)}({${fields.join(", ")}});
     }
 
-    render(){${destructureFieldsString(fields)}
+    render(){${destructureFieldsString(fields.filter(field=> field!=="id"))}
         return (
             <form className="${name}" onSubmit={this.handleSubmit}>
                 ${fieldsString(fields)}
+                <button type="submit">Submit</button>
             </form>
         );
     }
