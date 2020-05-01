@@ -31,7 +31,7 @@ const content = (name, fields) => {
 
 import React, {Component} from "react";
 
-// import {delete${name.slice(6)}} from "{{{store/API/${name.toLowerFirst()}}}}";
+// import {delete${name.slice(6)}} from "{{{store/API/${name.slice(6).toLowerFirst()}s}}}";
 
 class ${name} extends Component {
     handleClick = e => {
@@ -43,7 +43,7 @@ class ${name} extends Component {
     render(){
         const {${fields.join(", ")}} = this.props;
         return (
-            <div className="${name}">
+            <div className="${name} box">
                 ${fieldsString(fields)}
                 <button onClick={this.handleClick} type="button">
                     Delete

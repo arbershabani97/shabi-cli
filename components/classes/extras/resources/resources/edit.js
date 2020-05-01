@@ -25,12 +25,11 @@ const fieldsString = (fields) => {
 
 const content = (name, fields) => {
     name = name.split("/").pop();
-    fields=["name","color", "id"];
 	return `import "./styles/${name}.scss";
 
 import React, {Component} from "react";
 
-// import {put${name.slice(4)}} from "{{{store/API/${name.toLowerFirst()}}}}";
+// import {put${name.slice(4)}} from "{{{store/API/${name.slice(4).toLowerFirst()}s}}}";
 
 class ${name} extends Component {${stateString(fields)}
 

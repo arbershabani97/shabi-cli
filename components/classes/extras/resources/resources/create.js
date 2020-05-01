@@ -29,7 +29,7 @@ const content = (name, fields) => {
 
 import React, {Component} from "react";
 
-// import {post${name.slice(6)}} from "{{{store/API/${name.toLowerFirst()}}}}";
+// import {post${name.slice(6)}} from "{{{store/API/${name.slice(6).toLowerFirst()}s}}}";
 
 class ${name} extends Component {${stateString(fields)}
 
