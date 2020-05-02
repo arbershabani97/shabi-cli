@@ -9,6 +9,12 @@ const stateString = (fields) => {
     `)}
     `;
 };
+const destructureFieldsString = (fields) => {
+	if (!fields.length) return "";
+	return `
+        const {${fields.join(", ")}} = this.state;
+`;
+};
 const fieldsString = (fields) => {
 	if (!fields.length) return "";
 	const inputs = fields.map((field) => `<input name="${field}" onChange={handle${field.capitalize()}Change} placeholder="${field}" type="text" value={${field}} />`);
@@ -21,26 +27,28 @@ const content = (name, fields) => {
     const onlyFields = fields.filter(field=> field !== "id");
 	return `import "./styles/${name}.scss";
 
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 
-// import {post${name.slice(6)}} from "{{{store/API/${name.slice(6).toLowerFirst()}s}}}";
+// import {put${name.slice(4)}} from "{{{store/API/${name.slice(4).toLowerFirst()}s}}}";
 
-const ${name} = () => {${stateString(onlyFields)}
-
+const ${name} = ({id, ${onlyFields.map(field=> `${field}: p${field.capitalize()}`).join(", ")}}) => {${stateString(onlyFields)}
+    ${onlyFields.map((field) => `useEffect(() => set${field.capitalize()}(p${field.capitalize()}), [p${field.capitalize()}, id]);`).join(`
+    `)}
+    
     ${onlyFields.map((field) => `const handle${field.capitalize()}Change = useCallback(e => set${field.capitalize()}(e.target.value), []);`).join(`
     `)}
 
     const handleSubmit = useCallback(
 		e => {
 			e.preventDefault();
-            // post${name.slice(6)}({${onlyFields.join(", ")}});
+            // put${name.slice(4)}({id, ${onlyFields.join(", ")}});
 		},
-		[${onlyFields.join(", ")}],
+		[id, ${onlyFields.join(", ")}],
 	);
 
     return (
         <form className="${name}" onSubmit={handleSubmit}>
-            ${fieldsString(onlyFields)}
+            ${fieldsString(fields.filter(field=> field !== "id"))}
             <button type="submit">Submit</button>
         </form>
     );
