@@ -37,8 +37,11 @@ import React, {Component} from "react";
 
 class ${name} extends Component {
     shouldComponentUpdate(prevProps){
-        const {id} = this.props;
-        if (prevProps.id !== id) return true;
+		const {${fields.join(", ")}} = this.props;
+        if (${fields.length > 1 ? fields.slice(0,-1).map(field=>`
+            prevProps.${field} !== ${field} || `).join(''): ''}
+            prevProps.${fields[fields.length - 1]} !== ${fields[fields.length - 1]}
+        ) return true;
         return false;
     }
 
