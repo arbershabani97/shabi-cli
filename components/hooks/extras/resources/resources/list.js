@@ -43,31 +43,23 @@ const sampleList = [
     { id: 2, ${onlyFields.map((field) => field + `: "${randomNames[Math.floor(Math.random()*randomNames.length)]}"`).join(", ")}},
 ]
 
-class ${name} extends Component {
-	componentDidMount() {
+const ${name} = ({${lowerName} = sampleList, onToggle, setSelection}) => {
+    useEffect(() => {
 		// get${name.slice(4)}();
-    }
+    }, []);
     
-	shouldComponentUpdate(prevProps) {
-        const {${lowerName}} = this.props;
-        if (${lowerName}.length !== prevProps.${lowerName}.length) return true;
-        return false;
-    }
-    
-    render(){
-        const {${lowerName} = sampleList, onToggle, setSelection} = this.props;
-        return (
-            <div className="${name}">
-                {${lowerName}.map(${singleName} => (
-                    <${Name} key={${singleName}.id} ${singleName}={${singleName}} onToggle={onToggle} setSelection={setSelection} />
-                ))}
-            </div>
-        );
-    }
-}
+    return (
+        <div className="${name}">
+            {${lowerName}.map(${singleName} => (
+                <${Name} key={${singleName}.id} ${singleName}={${singleName}} onToggle={onToggle} setSelection={setSelection} />
+            ))}
+        </div>
+    );
+};
 const mapStateToProps = ({${lowerName}}) => ({${lowerName}});
 
-export default connect(mapStateToProps)(${name});`;
+export default connect(mapStateToProps)(React.memo(${name}));
+`;
 };
 
 module.exports = async (fileName, name, fields) => {
