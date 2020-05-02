@@ -32,7 +32,7 @@ const content = (name, fields) => {
     const onlyFields = fields.filter(field=> field !== "id");
 	return `import "./styles/${name}.scss";
 
-import React, {Component} from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 
 // import {get${name.slice(4)}} from "{{{store/API/${name.slice(4).toLowerFirst()}}}}";
