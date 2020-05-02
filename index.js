@@ -40,6 +40,7 @@ const createReactClassResourceWithExtras = require("./components/classes/extras/
 const createReactHookWithExtras = require("./questions/hooks/hook");
 const createReactHookFormWithExtras = require("./questions/hooks/form");
 const createReactHookPageWithExtras = require("./questions/hooks/page");
+const createReactHookResourceWithExtras = require("./components/hooks/extras/resources/resource.extra");
 
 let extras = process.argv.find((arg) => arg === "--extra" || arg === "-E");
 // if (!type.startsWith("page")) createReactStyles(name);
@@ -71,8 +72,10 @@ if (extras) {
 	}
 	if (type.startsWith("Resource")){
 		if(type.endsWith("class")) createReactClassResourceWithExtras(name, fields);
+		if(!type.endsWith("class")) createReactHookResourceWithExtras(name, fields);
 	}
 	if (type==="RC") createReactClassResourceWithExtras(name, fields);
+	if (type==="RH") createReactHookResourceWithExtras(name, fields);
 }
 
 if (type === "project") createProject(name);
