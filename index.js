@@ -42,6 +42,10 @@ const createReactHookFormWithExtras = require("./questions/hooks/form");
 const createReactHookPageWithExtras = require("./questions/hooks/page");
 const createReactHookResourceWithExtras = require("./components/hooks/extras/resources/resource.extra");
 
+// Redux Components
+const createReduxComponent = require("./redux/component");
+const createAOTReduxComponent = require("./redux/component.aot");
+
 let extras = process.argv.find((arg) => arg === "--extra" || arg === "-E");
 // if (!type.startsWith("page")) createReactStyles(name);
 if (extras) {
@@ -76,6 +80,11 @@ if (extras) {
 	}
 	if (type==="RC") createReactClassResourceWithExtras(name, fields);
 	if (type==="RH") createReactHookResourceWithExtras(name, fields);
+
+	if (type==="redux"){
+		if(type.toLowerCase().endsWith("aot")) createAOTReduxComponent(name, fields);
+		if(!type.toLowerCase().endsWith("aot")) createReduxComponent(name, fields);
+	}
 }
 
 if (type === "project") createProject(name);
